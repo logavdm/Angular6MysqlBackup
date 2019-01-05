@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- BORDERED TABLE -->
+    <div class="panel panel-headline">
+      <div class="panel-heading bg-primary">
+        <h3 class="panel-title">All Task List</h3>
+        <p class="panel-subtitle" style="color: white;">Date : Oct 14, 2016 - Oct 21, 2016</p>
+      </div>
+      <div class="panel-body">
+        <div class="row" style="margin-top: 20px;margin-bottom: 30px;">
+          <div class="col-md-8">
+            <form class="form-inline">
+              <div class="input-group" style="max-width: 250px;">
+              <span class="input-group-btn" >
+                <button class="btn btn-lg" type="button" >item Count</button>
+                </span>
+              <select class="form-control input-lg" [(ngModel)]="limit" (change)="itemCount()" name="count">
+                <option *ngFor="let item of [].constructor(filterMaxItems); let i = index">{{minFilter*(i+1)}}</option>
+              </select>
+
+            </div>
+              <a style="margin-left: 20px; cursor: pointer;" (click)="search()">Refresh</a>
+            </form>
+            
+            
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <input type="text" value="" class="form-control input-lg" placeholder="Search dashboard..." [(ngModel)]="filter">
+              <span class="input-group-btn"><button type="button" class="btn btn-primary btn-lg" (click)="search()">Search</button></span>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-striped">
+          <thead class="bg-primary">
+            <tr>
+              <th>SNO</th>
+              <th>Task ID</th>
+              <th>Task Name</th>
+              <th>CRON Expression</th>
+              <th>Status</th>
+              <th>Updated At</th>
+              <th>Created At</th>
+              <th>Details</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <div *ngIf="!(pageTask); then thenBlockEmptyTaskList else elseBlockTaskList"></div>
+            <ng-template #thenBlockEmptyTaskList>
+              <tr>
+                <td colspan="6" class="text-center"><h3>Task List Get As Empty</h3>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template #elseBlockTaskList>
+              <tr *ngFor="let task of pageTask ;let last = last ; let index = index ">
+                <td>{{index+1}}</td>
+                <td>{{task.id}}</td>
+                <td>{{task.taskName}}</td>
+                <td class="text-center">{{task.cronExpression}}</td>
+                <td>{{task.status}}</td>
+                <td>{{task.updatedAt | date:'MMMM d, y, h:mm:ss a'}}</td>
+                <td>{{task.createdAt | date:'MMMM d, y, h:mm:ss a'}}</td>
+                <td class="text-center">
+                   <div *ngIf="(task.status!='RUNNING')">
+                    <span class="label label-warning" [routerLink]="['view',task.id]" >View History</span>
+                  </div>
+                  <div *ngIf="(task.status=='RUNNING')">
+                   <span class="label label-success" [routerLink]="['view',task.id]">View Live Statistics</span>
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div *ngIf="(task.status!='RUNNING')">
+                    <button type="button" class="btn btn-success" (click)="startProcess(task.id)"><i class="fa fa-check-circle"></i> Start Task</button>
+                  </div>
+                  <div *ngIf="(task.status=='RUNNING')">
+                    <button type="button" class="btn btn-danger" (click)="stopProcess(task.id)"><i class="fa fa-trash-o"></i> Stop Task</button>
+                  </div>
+                </td>
+
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+        <div class="text-center"> 
+          <ngb-pagination class="d-flex justify-content-end" [collectionSize]="totalUsers" [(page)]="currentPage" [maxSize]="5" [pageSize]="limit" [boundaryLinks]="true" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+      </div>     
+    </div>
+    <!-- END BORDERED TABLE -->
+  </div>
+</div>

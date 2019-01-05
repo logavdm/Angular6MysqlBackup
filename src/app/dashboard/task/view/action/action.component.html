@@ -1,0 +1,19 @@
+<div class="tab-pane fade in active">
+  <ul class="list-unstyled activity-timeline">
+    <div *ngIf="!(pageTaskActionLog); then thenBlockEmptyTaskActionList else elseBlockTaskActionLogList"></div>
+    <ng-template #thenBlockEmptyTaskActionList>
+      <li>
+        <i class="fa fa-info activity-icon"></i>
+        <h3>No Activity Log Found</h3>
+      </li>
+    </ng-template>
+    <ng-template #elseBlockTaskActionLogList></ng-template>
+    <li *ngFor="let log of pageTaskActionLog ;let last = last ; let index = index">
+      <i class="fa fa-cloud-upload activity-icon"></i>
+      <p><strong>Action :</strong> {{log.action}} <strong> Description :</strong>{{log.description}} <span class="timestamp">{{log.createdAt | date:'MMMM d, y, h:mm:ss a'}}</span></p>
+    </li>
+  </ul>
+</div>
+<div class="text-left">
+  <ngb-pagination [collectionSize]="totalActionLog" [(page)]="currentPage" [maxSize]="5" [pageSize]="limit" [boundaryLinks]="true" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+</div>

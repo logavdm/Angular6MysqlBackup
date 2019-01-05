@@ -1,0 +1,66 @@
+<div class="panel panel-profile">
+  <div _ngcontent-c7="" class="panel-heading bg-primary"><h3 _ngcontent-c7="" class="panel-title">Task Details</h3>
+  </div>
+  <div class="clearfix">
+    <!-- RIGHT COLUMN -->
+    <div class="profile-right">
+      <!-- AWARDS -->
+      <div class="awards">
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+            <div class="panel">
+              <div class="panel-body no-padding bg-primary text-center">
+                <div class="padding-top-30 padding-bottom-30">
+                  <span class="fa-3x">100</span>
+                  <h3>Total Completed Task</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="panel">
+              <div class="panel-body no-padding bg-primary text-center">
+                <div class="padding-top-30 padding-bottom-30">
+                  <span class="fa-3x">100</span>
+                  <h3>Total Backups</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="panel">
+              <div class="panel-body no-padding bg-primary text-center">
+                <div class="padding-top-30 padding-bottom-30">
+                  <span class="fa-3x">100</span>
+                  <h3>Total Activity</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="panel">
+              <div class="panel-body no-padding bg-primary text-center">
+                <div class="padding-top-30 padding-bottom-30">
+                  <span class="fa-3x">100</span>
+                  <h3>Last Run At</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END AWARDS -->
+          <!-- TABBED CONTENT -->
+          <div class="custom-tabs-line tabs-line-bottom left-aligned">
+            <ul class="nav" role="tablist">
+              <li routerLink="activity" [routerLinkActive]="'active'"><a>Activity Logs</a></li>
+              <li routerLink="action" [routerLinkActive]="'active'"><a>Action Logs</a></li>
+              <li><a >Recent Backups</a></li>
+            </ul>
+          </div>
+          <div class="tab-content">
+            <router-outlet></router-outlet>
+          </div>
+          <!-- END TABBED CONTENT -->
+        </div>
+        <!-- END RIGHT COLUMN -->
+      </div>
+    </div>
